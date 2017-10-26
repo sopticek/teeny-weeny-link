@@ -25,7 +25,7 @@ class TestParseConfigFiles(unittest.TestCase):
         uri = localhost:6379
 
         [id_generator]
-        seed = f97a41350d30ce18a4f7593123e648862bf57749
+        salt = f97a41350d30ce18a4f7593123e648862bf57749
         '''
 
         with TemporaryFile(config_content) as cf:
@@ -39,7 +39,7 @@ class TestParseConfigFiles(unittest.TestCase):
                 'localhost:6379'
             )
             self.assertEqual(
-                parsed_config['id_generator']['seed'],
+                parsed_config['id_generator']['salt'],
                 'f97a41350d30ce18a4f7593123e648862bf57749'
             )
 
@@ -50,7 +50,7 @@ class TestParseConfigFiles(unittest.TestCase):
         uri = localhost:6379
 
         [id_generator]
-        seed = f97a41350d30ce18a4f7593123e648862bf57749
+        salt = f97a41350d30ce18a4f7593123e648862bf57749
         '''
         local_config_content = '''
         ; Local configuration file for teeny-weeny-link.
@@ -73,7 +73,7 @@ class TestParseConfigFiles(unittest.TestCase):
                     'myserver.com:6379'
                 )
                 self.assertEqual(
-                    parsed_config['id_generator']['seed'],
+                    parsed_config['id_generator']['salt'],
                     'f97a41350d30ce18a4f7593123e648862bf57749'
                 )
 
@@ -83,4 +83,4 @@ class TestParseOurConfigFiles(unittest.TestCase):
         parsed_config = parse_our_config_files()
 
         self.assertIn('uri', parsed_config['db'])
-        self.assertIn('seed', parsed_config['id_generator'])
+        self.assertIn('salt', parsed_config['id_generator'])

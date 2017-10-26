@@ -9,8 +9,8 @@ import hashids
 
 
 class IDGenerator:
-    def __init__(self, seed):
-        self._generator = hashids.Hashids(salt=seed)
+    def __init__(self, salt):
+        self._generator = hashids.Hashids(salt=salt)
 
     def to_id(self, num):
         return self._generator.encode(num)
