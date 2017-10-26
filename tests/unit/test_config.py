@@ -23,18 +23,34 @@ class TestParseConfigFiles(unittest.TestCase):
         ; Local configuration file for teeny-weeny-link.
         [db]
         uri = localhost:6379
+
+        [id_generator]
+        seed = f97a41350d30ce18a4f7593123e648862bf57749
         '''
 
         with TemporaryFile(config_content) as cf:
             parsed_config = parse_config_files(cf.name)
-            self.assertEqual(parsed_config.sections(), ['db'])
-            self.assertEqual(parsed_config['db']['uri'], 'localhost:6379')
+            self.assertEqual(
+                parsed_config.sections(),
+                ['db', 'id_generator']
+            )
+            self.assertEqual(
+                parsed_config['db']['uri'],
+                'localhost:6379'
+            )
+            self.assertEqual(
+                parsed_config['id_generator']['seed'],
+                'f97a41350d30ce18a4f7593123e648862bf57749'
+            )
 
     def test_two_files_are_parsed_correctly(self):
         global_config_content = '''
         ; Global configuration file for teeny-weeny-link.
         [db]
         uri = localhost:6379
+
+        [id_generator]
+        seed = f97a41350d30ce18a4f7593123e648862bf57749
         '''
         local_config_content = '''
         ; Local configuration file for teeny-weeny-link.
@@ -44,9 +60,22 @@ class TestParseConfigFiles(unittest.TestCase):
 
         with TemporaryFile(global_config_content) as global_cf:
             with TemporaryFile(local_config_content) as local_cf:
-                parsed_config = parse_config_files(global_cf.name, local_cf.name)
-                self.assertEqual(parsed_config.sections(), ['db'])
-                self.assertEqual(parsed_config['db']['uri'], 'myserver.com:6379')
+                parsed_config = parse_config_files(
+                    global_cf.name,
+                    local_cf.name
+                )
+                self.assertEqual(
+                    parsed_config.sections(),
+                    ['db', 'id_generator']
+                )
+                self.assertEqual(
+                    parsed_config['db']['uri'],
+                    'myserver.com:6379'
+                )
+                self.assertEqual(
+                    parsed_config['id_generator']['seed'],
+                    'f97a41350d30ce18a4f7593123e648862bf57749'
+                )
 
 
 class TestParseOurConfigFiles(unittest.TestCase):
@@ -54,3 +83,4 @@ class TestParseOurConfigFiles(unittest.TestCase):
         parsed_config = parse_our_config_files()
 
         self.assertIn('uri', parsed_config['db'])
+        self.assertIn('seed', parsed_config['id_generator'])
