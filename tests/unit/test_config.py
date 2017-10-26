@@ -22,7 +22,9 @@ class TestParseConfigFiles(unittest.TestCase):
         config_content = '''
         ; Local configuration file for teeny-weeny-link.
         [db]
-        uri = localhost:6379
+        host = localhost
+        port = 6379
+        password =
 
         [id_generator]
         salt = f97a41350d30ce18a4f7593123e648862bf57749
@@ -35,8 +37,16 @@ class TestParseConfigFiles(unittest.TestCase):
                 ['db', 'id_generator']
             )
             self.assertEqual(
-                parsed_config['db']['uri'],
-                'localhost:6379'
+                parsed_config['db']['host'],
+                'localhost'
+            )
+            self.assertEqual(
+                parsed_config['db']['port'],
+                '6379'
+            )
+            self.assertEqual(
+                parsed_config['db']['password'],
+                ''
             )
             self.assertEqual(
                 parsed_config['id_generator']['salt'],
@@ -47,7 +57,9 @@ class TestParseConfigFiles(unittest.TestCase):
         global_config_content = '''
         ; Global configuration file for teeny-weeny-link.
         [db]
-        uri = localhost:6379
+        host = localhost
+        port = 6379
+        password =
 
         [id_generator]
         salt = f97a41350d30ce18a4f7593123e648862bf57749
@@ -55,7 +67,8 @@ class TestParseConfigFiles(unittest.TestCase):
         local_config_content = '''
         ; Local configuration file for teeny-weeny-link.
         [db]
-        uri = myserver.com:6379
+        host = myserver.com
+        port = 6379
         '''
 
         with TemporaryFile(global_config_content) as global_cf:
@@ -69,8 +82,16 @@ class TestParseConfigFiles(unittest.TestCase):
                     ['db', 'id_generator']
                 )
                 self.assertEqual(
-                    parsed_config['db']['uri'],
-                    'myserver.com:6379'
+                    parsed_config['db']['host'],
+                    'myserver.com'
+                )
+                self.assertEqual(
+                    parsed_config['db']['port'],
+                    '6379'
+                )
+                self.assertEqual(
+                    parsed_config['db']['password'],
+                    ''
                 )
                 self.assertEqual(
                     parsed_config['id_generator']['salt'],
@@ -82,5 +103,7 @@ class TestParseOurConfigFiles(unittest.TestCase):
     def test_config_contains_all_required_information(self):
         parsed_config = parse_our_config_files()
 
-        self.assertIn('uri', parsed_config['db'])
+        self.assertIn('host', parsed_config['db'])
+        self.assertIn('port', parsed_config['db'])
+        self.assertIn('password', parsed_config['db'])
         self.assertIn('salt', parsed_config['id_generator'])
