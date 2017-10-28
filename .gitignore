@@ -1,5 +1,7 @@
 *.pyc
 __pycache__
+.coverage
 /config_local.ini
 /config_tests.ini
 /virtualenv/
+/htmlcov/
