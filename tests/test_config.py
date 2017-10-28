@@ -3,7 +3,7 @@
 # Author:   Daniela Duricekova <daniela.duricekova@gmail.com>
 #
 
-"""Unit tests for the config module."""
+"""Tests for the config module."""
 
 import unittest
 
