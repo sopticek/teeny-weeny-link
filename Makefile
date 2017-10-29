@@ -5,7 +5,7 @@
 # License:   MIT, see the LICENSE file for more details
 #
 
-.PHONY: tests tests-coverage pep8 clean
+.PHONY: run-dev tests tests-coverage pep8 clean
 
 run-dev:
 	@FLASK_APP=teeny_weeny_link/app.py FLASK_DEBUG=1 flask run
