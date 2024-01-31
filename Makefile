@@ -1,6 +1,6 @@
 #
 # Project:   teeny-weeny-link
-# Copyright: (c) 2017 by Daniela Duricekova <daniela.duricekova@gmail.com>
+# Copyright: (c) 2017 by Daniela Ďuričeková <daniela.duricekova@protonmail.com>
 #            and contributors
 # License:   MIT, see the LICENSE file for more details
 #

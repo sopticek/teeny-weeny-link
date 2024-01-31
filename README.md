@@ -108,6 +108,6 @@ The application was created in order to get acquainted with [Redis](http://redis
 
 ## Copyright and License ##
 
-Copyright (c) 2017 Daniela Duricekova <daniela.duricekova@gmail.com> and contributors
+Copyright (c) 2017 Daniela Ďuričeková <daniela.duricekova@protonmail.com> and contributors
 
 Distributed under the MIT license. See the LICENSE file for more details.
